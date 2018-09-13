@@ -4,5 +4,5 @@ mkdir -p .working
 
 export ROOT=$(PWD)/.working
 
-docker-compose up
 docker-compose down
+docker-compose up -d
