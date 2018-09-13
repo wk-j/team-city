@@ -1,0 +1,29 @@
+version: "3.1"
+services:
+  teamcity:
+    restart: always
+    image: "jetbrains/teamcity-server:latest"
+    ports:
+      - "8111:8111"
+    volumes:
+      - ${ROOT}/data:/data/teamcity_server/datadir
+      - ${ROOT}/logs:/opt/teamcity/logs
+    networks:
+      - aspnetcoreapp-network
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: postgres
+    # ports:
+    #  - "5432:5432"
+    networks:
+      - aspnetcoreapp-network
+    volumes:
+      - ${ROOT}/db:/var/lib/postgresql/data
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
